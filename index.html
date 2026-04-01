@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Username Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">
+    <div class="logo-icon">U_</div>
+    <span class="logo-text">namegen</span>
+  </div>
+  <h1>Username <span>Generator</span></h1>
+  <p class="subtitle">Build a custom format using tokens, then generate as many usernames as you need instantly.</p>
+</header>
+
+<div class="card">
+  <div class="section-label">Format</div>
+
+  <div class="format-row">
+    <input class="format-input" id="format-input" type="text" value="%adj%%noun%%n2%" placeholder="%adj%%noun%%n2%">
+    <button class="btn-generate" id="generate-btn">Generate</button>
+  </div>
+
+  <div class="error-msg" id="error-msg"></div>
+
+  <!-- Token builder -->
+  <div class="builder">
+
+    <div class="builder-col">
+      <div class="builder-col-label">Word type</div>
+      <div class="tokens-grid">
+        <span class="token adj"  data-token="adj">adj</span>
+        <span class="token noun" data-token="noun">noun</span>
+        <span class="token num"  data-token="n1">n1</span>
+        <span class="token num"  data-token="n2">n2</span>
+        <span class="token num"  data-token="n3">n3</span>
+        <span class="token num"  data-token="n4">n4</span>
+      </div>
+    </div>
+
+    <div class="builder-divider"></div>
+
+    <div class="builder-col">
+      <div class="builder-col-label">Modifier <span class="builder-col-hint">(optional, stackable)</span></div>
+      <div class="tokens-grid">
+        <span class="token mod" data-mod="upper">upper</span>
+        <span class="token mod" data-mod="lower">lower</span>
+        <span class="token mod" data-mod="cap">cap</span>
+        <span class="token mod" data-mod="leet">leet</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Syntax reference -->
+  <div class="syntax-block">
+    <div class="syntax-header">
+      <span class="syntax-title">Syntax</span>
+      <code class="syntax-pattern">%[modifier:]type%</code>
+    </div>
+    <div class="syntax-rows">
+
+      <div class="syntax-section-label">Word types</div>
+      <div class="syntax-row">
+        <code class="syn-token adj">adj</code>
+        <span class="syn-arrow">→</span>
+        <span class="syn-desc">random adjective <em>e.g. silent, lunar, crisp</em></span>
+      </div>
+      <div class="syntax-row">
+        <code class="syn-token noun">noun</code>
+        <span class="syn-arrow">→</span>
+        <span class="syn-desc">random noun <em>e.g. prism, wolf, tide</em></span>
+      </div>
+      <div class="syntax-row">
+        <code class="syn-token num">n1 · n2 · n3 · n4</code>
+        <span class="syn-arrow">→</span>
+        <span class="syn-desc">random number with 1–4 digits</span>
+      </div>
+
+      <div class="syntax-section-label">Modifiers</div>
+      <div class="syntax-row">
+        <code class="syn-token mod">upper</code>
+        <span class="syn-arrow">→</span>
+        <span class="syn-desc">ALL CAPS &nbsp;<em>%upper:adj% → SILENT</em></span>
+      </div>
+      <div class="syntax-row">
+        <code class="syn-token mod">lower</code>
+        <span class="syn-arrow">→</span>
+        <span class="syn-desc">all lowercase &nbsp;<em>%lower:adj% → silent</em></span>
+      </div>
+      <div class="syntax-row">
+        <code class="syn-token mod">cap</code>
+        <span class="syn-arrow">→</span>
+        <span class="syn-desc">Capitalised first letter &nbsp;<em>%cap:noun% → Prism</em></span>
+      </div>
+      <div class="syntax-row">
+        <code class="syn-token mod">leet</code>
+        <span class="syn-arrow">→</span>
+        <span class="syn-desc">1–2 leet substitutions &nbsp;<em>%leet:adj% → s1lent</em></span>
+      </div>
+
+      <div class="syntax-section-label">Stacking modifiers</div>
+      <div class="syntax-row syntax-row--example">
+        <code class="syn-token mod">%leet:upper:adj%</code>
+        <span class="syn-arrow">→</span>
+        <span class="syn-desc">leet first, then uppercase &nbsp;<em>→ S1L3NT</em></span>
+      </div>
+      <div class="syntax-row syntax-row--example">
+        <code class="syn-token mod">%cap:noun%_%n2%</code>
+        <span class="syn-arrow">→</span>
+        <span class="syn-desc">capitalised noun + 2-digit number &nbsp;<em>→ Prism_47</em></span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="count-row">
+    <span class="count-label">How many usernames?</span>
+    <input class="count-input" id="count-input" type="number" min="1" max="50" value="10">
+  </div>
+</div>
+
+<div class="card" id="results-card">
+  <div class="section-label">Results</div>
+  <div id="results-list" class="results-list">
+    <div class="empty-state">
+      Hit <strong>Generate</strong> to create usernames
+      <div class="hint">← try the format above or click tokens to build your own</div>
+    </div>
+  </div>
+  <div class="copy-all-row" id="copy-all-row" style="display:none">
+    <button class="btn-copy-all" id="copy-all-btn">Copy all</button>
+  </div>
+</div>
+
+<footer>// namegen · <a href="https://github.com/Yorxck/namegen/tree/main">github</a></footer>
+
+<script src="generator.js"></script>
+</body>
+</html>
