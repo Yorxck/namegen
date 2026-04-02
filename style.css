@@ -302,9 +302,16 @@ h1 span {
   white-space: nowrap;
   flex-shrink: 0;
 }
-
+ 
 .copy-btn:hover  { border-color: var(--accent); color: var(--accent2); }
-.copy-btn.copied { border-color: var(--green);  color: var(--green); }
+.copy-btn.copied { border-color: var(--green);  color: var(--green); animation: copiedPop 0.3s ease; }
+ 
+@keyframes copiedPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.18); }
+  70%  { transform: scale(0.93); }
+  100% { transform: scale(1); }
+}
 
 .copy-all-row {
   display: flex;
@@ -478,6 +485,37 @@ h1 span {
   margin-top: 6px;
   font-family: var(--mono);
   min-height: 18px;
+}
+
+/* === Format preview === */
+ 
+.format-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-height: 38px;
+}
+ 
+.format-preview-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+ 
+.format-preview-text {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--text);
+  word-break: break-all;
 }
 
 /* === Empty state === */

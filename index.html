@@ -22,24 +22,29 @@
   <div class="section-label">Format</div>
 
   <div class="format-row">
-    <input class="format-input" id="format-input" type="text" value="%adj%%noun%%n2%" placeholder="%adj%%noun%%n2%">
+    <input class="format-input" id="format-input" type="text" value="%cap:adj%%cap:noun%%n2%" placeholder="%cap:adj%%cap:noun%%n2%">
     <button class="btn-generate" id="generate-btn">Generate</button>
   </div>
 
   <div class="error-msg" id="error-msg"></div>
+
+  <div class="format-preview" id="format-preview">
+    <span class="format-preview-label">preview</span>
+    <span class="format-preview-text" id="format-preview-text">—</span>
+  </div>
 
   <!-- Token builder -->
   <div class="builder">
 
     <div class="builder-col">
       <div class="builder-col-label">Word type</div>
-      <div class="tokens-grid">
-        <span class="token adj"  data-token="adj">adj</span>
-        <span class="token noun" data-token="noun">noun</span>
-        <span class="token num"  data-token="n1">n1</span>
-        <span class="token num"  data-token="n2">n2</span>
-        <span class="token num"  data-token="n3">n3</span>
-        <span class="token num"  data-token="n4">n4</span>
+      <div class="tokens-grid" id="tokens-chips">
+        <span class="token adj"  data="adj">adj</span>
+        <span class="token noun" data="noun">noun</span>
+        <span class="token num"  data="n1">n1</span>
+        <span class="token num"  data="n2">n2</span>
+        <span class="token num"  data="n3">n3</span>
+        <span class="token num"  data="n4">n4</span>
       </div>
     </div>
 
@@ -47,11 +52,11 @@
 
     <div class="builder-col">
       <div class="builder-col-label">Modifier <span class="builder-col-hint">(optional, stackable)</span></div>
-      <div class="tokens-grid">
-        <span class="token mod" data-mod="upper">upper</span>
-        <span class="token mod" data-mod="lower">lower</span>
-        <span class="token mod" data-mod="cap">cap</span>
-        <span class="token mod" data-mod="leet">leet</span>
+      <div class="tokens-grid" id="modifier-chips">
+        <span class="token mod" data="upper">upper</span>
+        <span class="token mod" data="lower">lower</span>
+        <span class="token mod" data="cap">cap</span>
+        <span class="token mod" data="leet">leet</span>
       </div>
     </div>
 
