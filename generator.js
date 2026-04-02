@@ -175,7 +175,7 @@ for (const chip of modifier_chips.children) {
     chip.addEventListener("click", e => {
         format_input.value = format_input.value.replace(/%([^%]+)%(?=[^%]*$)/, `%${chip.getAttribute("data")}:$1%`)
 
-        preview.innerText = parseInput(format_input.value) || "—"
+        preview.innerText = parseInput(format_input.value, true) || "—"
     })
 }
 
