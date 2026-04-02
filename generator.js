@@ -13,7 +13,7 @@ syntax_block = document.getElementById("syntax-block");
 
 
 // Constants \\
-const WORD_TYPES ={
+const WORD_TYPES = {
     adj: generateAdjective,
     noun: generateNoun,
     n1: () => generateNumber(1),
@@ -21,6 +21,15 @@ const WORD_TYPES ={
     n3: () => generateNumber(3),
     n4: () => generateNumber(4),
 };
+
+const PREVIEW_WORDS = {
+    adj: "simple",
+    noun: "apple",
+    n1: "3",
+    n2: "33",
+    n3: "333",
+    n4: "3333"
+}
 
 const MODIFIERS = {
     upper: s => s.toUpperCase(),
@@ -58,18 +67,18 @@ fetch("https://raw.githubusercontent.com/Yorxck/namegen/refs/heads/dev/words/nou
     });
 
 // Functions \\
-function parseInput(s) {
-    let result = s.replace(/%([^%]+)%/g, (_, inner) => resolveToken(inner));
+function parseInput(s, preview = false) {
+    let result = s.replace(/%([^%]+)%/g, (_, inner) => resolveToken(inner, preview));
 
     return result;
 }
 
-function resolveToken(s) {
+function resolveToken(s, preview = false) {
     const parts = s.split(":");
     const type = parts.at(-1);
     const mods = parts.slice(0, -1);
 
-    let word = WORD_TYPES[type]?.();
+    let word = preview ? PREVIEW_WORDS[type] : WORD_TYPES[type]?.();
     if (!word) return `%${s}%`;
 
     for (const mod of mods) {
@@ -88,10 +97,10 @@ function generateNoun() {
 }
 
 function generateNumber(l) {
-    min = Math.pow(10, l-1);
-    max = ( Math.pow(10, l) - 1 );
+    const min = Math.pow(10, l-1);
+    const max = ( Math.pow(10, l) - 1 );
 
-    return Math.round(Math.random() * (max - min) + min);
+    return String(Math.round(Math.random() * (max - min) + min));
 }
 
 function leetify(s) {
@@ -128,6 +137,8 @@ generate_btn.addEventListener("click", () => {
             navigator.clipboard.writeText(result)
             
             copy_btn.classList.add("copied")
+
+            setTimeout(() => copy_btn.classList.remove("copied"), 1500)
         })
 
         results_list.append(div)
@@ -143,7 +154,7 @@ format_input.addEventListener("keydown", (e) => {
 })
 
 format_input.addEventListener("input", e => {
-    preview.innerText = parseInput(e.target.value) || "—"
+    preview.innerText = parseInput(e.target.value, true) || "—"
 })
 
 syntax_toggle.addEventListener("click", () => {
@@ -155,16 +166,22 @@ syntax_toggle.addEventListener("click", () => {
 for (const chip of token_chips.children) {
     chip.addEventListener("click", e => {
         format_input.value += `%${chip.getAttribute("data")}%`
+
+        preview.innerText = parseInput(format_input.value, true) || "—"
     })
 }
 
 for (const chip of modifier_chips.children) {
     chip.addEventListener("click", e => {
         format_input.value = format_input.value.replace(/%([^%]+)%(?=[^%]*$)/, `%${chip.getAttribute("data")}:$1%`)
+
+        preview.innerText = parseInput(format_input.value) || "—"
     })
 }
 
 format_input.value = localStorage.getItem("last_format") || "%cap:adj%%cap:noun%%n2%"
+
+preview.innerText = parseInput(format_input.value, true) || "—"
 
 if (localStorage.getItem("syntax_collapsed") === "true") {
     syntax_block.classList.add("syntax-block--collapsed")
