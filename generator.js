@@ -155,16 +155,22 @@ syntax_toggle.addEventListener("click", () => {
 for (const chip of token_chips.children) {
     chip.addEventListener("click", e => {
         format_input.value += `%${chip.getAttribute("data")}%`
+
+        preview.innerText = parseInput(format_input.value) || "—"
     })
 }
 
 for (const chip of modifier_chips.children) {
     chip.addEventListener("click", e => {
         format_input.value = format_input.value.replace(/%([^%]+)%(?=[^%]*$)/, `%${chip.getAttribute("data")}:$1%`)
+
+        preview.innerText = parseInput(format_input.value) || "—"
     })
 }
 
 format_input.value = localStorage.getItem("last_format") || "%cap:adj%%cap:noun%%n2%"
+
+preview.innerText = parseInput(format_input.value) || "—"
 
 if (localStorage.getItem("syntax_collapsed") === "true") {
     syntax_block.classList.add("syntax-block--collapsed")
