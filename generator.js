@@ -91,7 +91,7 @@ function generateNumber(l) {
     min = Math.pow(10, l-1);
     max = ( Math.pow(10, l) - 1 );
 
-    return Math.round(Math.random() * (max - min) + min);
+    return String(Math.round(Math.random() * (max - min) + min));
 }
 
 function leetify(s) {
