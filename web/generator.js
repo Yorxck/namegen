@@ -95,7 +95,13 @@ function generateNumber(l) {
 }
 
 function leetify(s) {
-    return s
+    const eligible = [...s].reduce((acc, ch, i) => {
+        if (i > 0 && LEET_REPLACE[ch.toLowerCase()]) acc.push(i)
+        return acc
+    }, [])
+    if (eligible.length === 0) return s
+    const i = eligible[Math.floor(Math.random() * eligible.length)]
+    return s.slice(0, i) + LEET_REPLACE[s[i].toLowerCase()] + s.slice(i + 1)
 }
 
 // Bind events \\
@@ -146,7 +152,6 @@ syntax_toggle.addEventListener("click", () => {
     localStorage.setItem("syntax_collapsed", syntax_block.classList.contains("syntax-block--collapsed"))
 })
 
-<<<<<<< HEAD
 for (const chip of token_chips.children) {
     chip.addEventListener("click", e => {
         format_input.value += `%${chip.getAttribute("data")}%`
@@ -159,8 +164,6 @@ for (const chip of modifier_chips.children) {
     })
 }
 
-=======
->>>>>>> 55494a7e561c509fa097785fef30cd3b1873edb1
 format_input.value = localStorage.getItem("last_format") || "%cap:adj%%cap:noun%%n2%"
 
 if (localStorage.getItem("syntax_collapsed") === "true") {
