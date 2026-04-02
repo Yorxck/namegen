@@ -146,6 +146,7 @@ syntax_toggle.addEventListener("click", () => {
     localStorage.setItem("syntax_collapsed", syntax_block.classList.contains("syntax-block--collapsed"))
 })
 
+<<<<<<< HEAD
 for (const chip of token_chips.children) {
     chip.addEventListener("click", e => {
         format_input.value += `%${chip.getAttribute("data")}%`
@@ -158,6 +159,8 @@ for (const chip of modifier_chips.children) {
     })
 }
 
+=======
+>>>>>>> 55494a7e561c509fa097785fef30cd3b1873edb1
 format_input.value = localStorage.getItem("last_format") || "%cap:adj%%cap:noun%%n2%"
 
 if (localStorage.getItem("syntax_collapsed") === "true") {
