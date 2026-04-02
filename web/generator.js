@@ -41,7 +41,7 @@ const LEET_REPLACE = {
 
 // Fetch wordlists \\
 var adjectives = [];
-fetch("/adjectives.txt")
+fetch("https://raw.githubusercontent.com/Yorxck/namegen/refs/heads/dev/words/adjectives.txt")
     .then(response => response.text())
     .then(text => {adjectives = text.split("\n").map(s => s.trim())})
     .catch(err => {
@@ -49,7 +49,7 @@ fetch("/adjectives.txt")
     });
 
 var nouns = [];
-fetch("/nouns.txt")
+fetch("https://raw.githubusercontent.com/Yorxck/namegen/refs/heads/dev/words/nouns.txt")
     .then(response => response.text())
     .then(text => {nouns = text.split("\n").map(s => s.trim())})
     .catch(err => {
@@ -141,6 +141,12 @@ format_input.addEventListener("input", e => {
 
 syntax_toggle.addEventListener("click", () => {
     syntax_block.classList.toggle("syntax-block--collapsed")
+
+    localStorage.setItem("syntax_collapsed", syntax_block.classList.contains("syntax-block--collapsed"))
 })
 
 format_input.value = localStorage.getItem("last_format") || "%cap:adj%%cap:noun%%n2%"
+
+if (localStorage.getItem("syntax_collapsed") === "true") {
+    syntax_block.classList.add("syntax-block--collapsed")
+}
