@@ -7,6 +7,9 @@ preview = document.getElementById("format-preview-text");
 token_chips = document.getElementById("token-chips");
 modifier_chips = document.getElementById("modifier-chips");
 
+syntax_toggle = document.getElementById("syntax-toggle");
+syntax_block = document.getElementById("syntax-block");
+
 
 // Constants \\
 const WORD_TYPES ={
@@ -134,6 +137,10 @@ format_input.addEventListener("keydown", (e) => {
 
 format_input.addEventListener("input", e => {
     preview.innerText = parseInput(e.target.value) || "—"
+})
+
+syntax_toggle.addEventListener("click", () => {
+    syntax_block.classList.toggle("syntax-block--collapsed")
 })
 
 format_input.value = localStorage.getItem("last_format") || "%cap:adj%%cap:noun%%n2%"
