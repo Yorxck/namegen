@@ -4,7 +4,8 @@ generate_btn = document.getElementById("generate-btn");
 count_input = document.getElementById("count-input");
 results_list = document.getElementById("results-list");
 preview = document.getElementById("format-preview-text");
-token_chips = document.getElementById("token-chips");
+
+token_chips = document.getElementById("tokens-chips");
 modifier_chips = document.getElementById("modifier-chips");
 
 syntax_toggle = document.getElementById("syntax-toggle");
@@ -41,7 +42,7 @@ const LEET_REPLACE = {
 
 // Fetch wordlists \\
 var adjectives = [];
-fetch("/adjectives.txt")
+fetch("https://raw.githubusercontent.com/Yorxck/namegen/refs/heads/dev/words/adjectives.txt")
     .then(response => response.text())
     .then(text => {adjectives = text.split("\n").map(s => s.trim())})
     .catch(err => {
@@ -49,7 +50,7 @@ fetch("/adjectives.txt")
     });
 
 var nouns = [];
-fetch("/nouns.txt")
+fetch("https://raw.githubusercontent.com/Yorxck/namegen/refs/heads/dev/words/nouns.txt")
     .then(response => response.text())
     .then(text => {nouns = text.split("\n").map(s => s.trim())})
     .catch(err => {
@@ -141,6 +142,24 @@ format_input.addEventListener("input", e => {
 
 syntax_toggle.addEventListener("click", () => {
     syntax_block.classList.toggle("syntax-block--collapsed")
+
+    localStorage.setItem("syntax_collapsed", syntax_block.classList.contains("syntax-block--collapsed"))
 })
 
+for (const chip of token_chips.children) {
+    chip.addEventListener("click", e => {
+        format_input.value += `%${chip.getAttribute("data")}%`
+    })
+}
+
+for (const chip of modifier_chips.children) {
+    chip.addEventListener("click", e => {
+        format_input.value = format_input.value.replace(/%([^%]+)%(?=[^%]*$)/, `%${chip.getAttribute("data")}:$1%`)
+    })
+}
+
 format_input.value = localStorage.getItem("last_format") || "%cap:adj%%cap:noun%%n2%"
+
+if (localStorage.getItem("syntax_collapsed") === "true") {
+    syntax_block.classList.add("syntax-block--collapsed")
+}
