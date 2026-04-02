@@ -88,8 +88,8 @@ function generateNoun() {
 }
 
 function generateNumber(l) {
-    min = Math.pow(10, l-1);
-    max = ( Math.pow(10, l) - 1 );
+    const min = Math.pow(10, l-1);
+    const max = ( Math.pow(10, l) - 1 );
 
     return String(Math.round(Math.random() * (max - min) + min));
 }
@@ -128,6 +128,8 @@ generate_btn.addEventListener("click", () => {
             navigator.clipboard.writeText(result)
             
             copy_btn.classList.add("copied")
+
+            setTimeout(() => copy_btn.classList.remove("copied"), 1500)
         })
 
         results_list.append(div)
