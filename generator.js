@@ -46,7 +46,8 @@ const LEET_REPLACE = {
     "t": "7",
     "l": "1",
     "g": "9",
-    "b": "8"
+    "b": "8",
+    "a": "4"
 };
 
 // Fetch wordlists \\
